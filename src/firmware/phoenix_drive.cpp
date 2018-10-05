@@ -32,6 +32,7 @@ void HolonomicDrive::move(double x, double y, double theta) {
       speed+=imatrix[r][j]*comp_vec[j];
     }
     control[r].speed=(int16_t)speed;
+    speed=0;
   }
 }
 
