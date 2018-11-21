@@ -16,9 +16,9 @@ void Joint::init(uint8_t* pins) {
   pinMode(*pin_dirb, OUTPUT);
   digitalWrite(*pin_dirb, 0);
 
-  this->_pin_pwm = pin_pwm;
-  this->_pin_dira = pin_dira;
-  this->_pin_dirb = pin_dirb;
+  this->_pin_pwm = *pin_pwm;
+  this->_pin_dira = *pin_dira;
+  this->_pin_dirb = *pin_dirb;
 }
 
 void Joint::setSpeed(int16_t speed) {

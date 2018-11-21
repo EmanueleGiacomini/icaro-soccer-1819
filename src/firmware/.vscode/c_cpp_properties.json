@@ -4,7 +4,11 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
-                "/home/emanuele/.local/share/umake/ide/arduino/hardware/arduino/avr/cores/arduino/*"
+                "/home/emanuele/arduino/hardware/tools/avr/avr/include",
+                "/home/emanuele/arduino/hardware/arduino/avr/cores/arduino/**",
+                "/home/emanuele/arduino/hardware/arduino/avr/libraries/**",
+                "/home/emanuele/arduino/libraries/**"
+
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",
