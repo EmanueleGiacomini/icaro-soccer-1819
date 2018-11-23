@@ -9,8 +9,8 @@
 //TODO: Implementare timer x reset automatico dell'handler
 
 static void PhoenixLineHandler_updateEDir(PhoenixLineHandler* h) {
-  h->escape_direction[0] = -h->escape_x;
-  h->escape_direction[1] = -h->escape_y;
+  h->escape_direction[0] = -h->border_x;
+  h->escape_direction[1] = -h->border_y;
   h->escape_direction[2] = 0;
 }
 
@@ -23,8 +23,8 @@ void PhoenixLineHandler_init(PhoenixLineHandler* h,
 }
 
 OpStatus PhoenixLineHandler_handle(PhoenixLineHandler* h) {
-  h->escape_x=0;
-  h->escape_y=0;
+  h->border_x=0;
+  h->border_y=0;
   // query all the sensors and update the detector's state
   for(int i=0;i<NUM_LINEDETECTORS;++i)
     if(PhoenixLineDetector_handle(&h->ld[i])<0) return UnknownType;
@@ -37,8 +37,8 @@ OpStatus PhoenixLineHandler_handle(PhoenixLineHandler* h) {
         // update the mask, compute the new direction vector
         // and reset the escape_ttl
         h->mask |= 0x1<<i;
-        h->escape_x+=h->ld[i].x;
-        h->escape_y+=h->ld[i].y;
+        h->border_x+=h->ld[i].x;
+        h->border_y+=h->ld[i].y;
         PhoenixLineHandler_updateEDir(h);
       }
     }

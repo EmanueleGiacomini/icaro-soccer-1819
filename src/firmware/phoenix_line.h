@@ -12,8 +12,8 @@ typedef struct {
   PhoenixLineDetector* ld;
   uint16_t mask; 
   
-  double escape_x;
-  double escape_y;
+  double border_x;
+  double border_y;
   uint8_t escape_flag;
   uint16_t escape_direction[3];
   

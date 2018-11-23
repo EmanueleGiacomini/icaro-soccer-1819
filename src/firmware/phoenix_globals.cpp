@@ -36,8 +36,8 @@ PhoenixLineDetector line_sensors[NUM_LINEDETECTORS] = {
 PhoenixLineHandler line_handler = {
   ld : line_sensors,
   mask : 0x0,
-  escape_x : 0,
-  escape_y : 0,
+  border_x : 0,
+  border_y : 0,
   escape_flag : 0,
   escape_direction : {0, 0, 0},
   escape_ttl : ESCAPE_TTL

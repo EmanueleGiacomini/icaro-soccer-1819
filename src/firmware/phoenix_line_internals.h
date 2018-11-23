@@ -16,7 +16,7 @@ typedef struct {
   double y;
   uint16_t threshold;
   uint16_t reading;
-
+  
   uint8_t adc_addr;
   uint8_t adc_idx;
 } PhoenixLineDetector;
