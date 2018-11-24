@@ -8,6 +8,9 @@
     Inizializza TempoStruct t impostando s secondi, m minuti e h ore
 **/
 void TempoStruct_init(TempoStruct* t, int h, int m, int s) {
+  s = t->secondi;
+  m = t->minuti;
+  h = t->ore;
   return;
 }
 
@@ -23,6 +26,7 @@ void TempoStruct_init(TempoStruct* t, int h, int m, int s) {
 **/
 
 void TempoStruct_calcolaDiff(TempoStruct* t2, TempoStruct* t1, TempoStruct* diff) {
+  diff = t2 - t1;
   return;
 }
 
