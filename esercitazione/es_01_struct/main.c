@@ -56,19 +56,40 @@ void MiaStruct_compute(MiaStruct* m) {
 /** #----------------> non modificare qui sotto... <--------------# **/
 
 void MiaStruct_print(MiaStruct* m) {
-  printf("sommaxy: %d\n", m->sommaxy);
+  printf("sommaxy: %d", m->sommaxy);
 }
 
 
 MiaStruct ms;
 
 int main(int argc, char* argv[]) {
+  printf("/----------- Test 1 ---------/\n");
   MiaStruct_init(&ms);
+  printf("inizializzata struct: x:%d, y:%d, sommaxy: %d",ms.x, ms.y, ms.sommaxy);
+  printf(" corretto [x:0, y:0, sommaxy: 0]\n");
   MiaStruct_setX(&ms, 3);
+  printf("impostato x a %d [corretto=3]\n", MiaStruct_getX(&ms));
   MiaStruct_setY(&ms, 2);
+  printf("impostato y a %d [corretto=2]\n", MiaStruct_getY(&ms));
+
+  printf("Eseguendo la somma fra x ed y...\n");
   MiaStruct_compute(&ms);
-  // Test 1
-  printf("[soluzione=5]\t");
-  MiaStruct_print(&ms);
+  printf("sommaxy: %d [corretto=5]\n", ms.sommaxy);
+
+
+  printf("/----------- Test 2 ---------/\n");
+  MiaStruct_init(&ms);
+  printf("inizializzata struct: x:%d, y:%d, sommaxy: %d",ms.x, ms.y, ms.sommaxy);
+  printf(" corretto [x:0, y:0, sommaxy: 0]\n");
+  MiaStruct_setX(&ms, 10);
+  printf("impostato x a %d [corretto=10]\n", MiaStruct_getX(&ms));
+  MiaStruct_setY(&ms, -4);
+  printf("impostato y a %d [corretto=-4]\n", MiaStruct_getY(&ms));
+
+  printf("Eseguendo la somma fra x ed y...\n");
+  MiaStruct_compute(&ms);
+  printf("sommaxy: %d [corretto=6]\n", ms.sommaxy);
+  
+  
   return 0;
 }

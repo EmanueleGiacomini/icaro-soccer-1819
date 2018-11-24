@@ -14,7 +14,7 @@ all: $(BINS)
 %.o: %.c 
 	$(CC) $(COPTS) $< -c -o $@
 
-main.elf: $(OBJS) $(DEPS)
+main.elf: $(OBJS)  
 	$(CC) $(COPTS) $^ -o $@
 
 clean:
