@@ -1,45 +1,60 @@
+/**
+ * phoenix_drive.cpp
+ **/
 #include "phoenix_drive.h"
+#include "phoenix_params.h"
 
-static double imatrix[NUM_MOTORS][NUM_MOTORS] =
-  {
-    {0.33, -0.33, 0.57},
-    {0.33, -0.33, -0.57},
-    {0.33, 0.66, 0}
-  };
+/**
+ * matrice cinematica robot a 3 assi
+ * da velocita motori => forze su robot
+ **/
+static double kmatrix[NUM_JOINTS][NUM_JOINTS] =
+{
+  {0.0, 0.0, 0.0},
+  {0.0, 0.0, 0.0},
+  {0.0, 0.0, 0.0}
+};
 
-HolonomicDrive::HolonomicDrive() {}
+/**
+ * matrice inversa cinematica robot a 3 assi
+ * da forze su robot => velocita motori
+ **/
+static double ikmatrix[NUM_JOINTS][NUM_JOINTS] =
+{
+  {0.0, 0.0, 0.0},
+  {0.0, 0.0, 0.0},
+  {0.0, 0.0, 0.0}
+};
 
-void HolonomicDrive::init(Joint* joints, JointParams* params,
-            JointControl* control) {
-  this->joints=joints;
-  this->params=params;
-  this->control=control;
-  
-  int i;
-  for(i=0;i<NUM_MOTORS;++i) {
-    joints[i].init(params->pins);
-  }
+/**
+ * inizializza d (PhoenixDrive) azzerando le velocita desiderate
+ * e regolate.
+ * In oltre  imposta d->joints = joint_array
+ **/
+void PhoenixDrive_init(PhoenixDrive* d, PhoenixJoint* joint_array) {
+  return;
 }
 
-void HolonomicDrive::move(double x, double y, double theta) {
-  int r,j;
-  double comp_vec[3] = {theta, x, y};
-  double speed=0;
-  // calculate joints speeds through the inverse kinematics matrix
-  // it's just a matrix product between the inverse matrix and movement components vector
-  for(r=0;r<NUM_MOTORS;++r) {
-    for(j=0;j<NUM_MOTORS;++j) {
-      speed+=imatrix[r][j]*comp_vec[j];
-    }
-    control[r].speed=(int16_t)speed;
-    speed=0;
-  }
+/**
+ * imposta le velocita desiderate di d, in funzione dei parametri
+ * x, y e r
+ */
+void PhoenixDrive_setSpeed(PhoenixDrive* d, double x, double y, double r) {
+  return;
 }
 
-void HolonomicDrive::handle() {
-  int i;
-  for(i=0;i<NUM_MOTORS;++i) {
-    joints[i].setSpeed(control[i].speed);
-    joints[i].handle();
-  }
+/**
+ * Calcola ed assegna le velocita per 
+ * ogni Joint presente in d->joints 
+ **/
+void PhoenixDrive_handle(PhoenixDrive* d) {
+  return;
+}
+
+/**
+ * Azzera i valori di velocita desiderate in d (PhoenixDrive)
+ * e rilancia PhoenixDrive_handle
+ **/
+void PhoenixDrive_reset(PhoenixDrive* d) {
+
 }
