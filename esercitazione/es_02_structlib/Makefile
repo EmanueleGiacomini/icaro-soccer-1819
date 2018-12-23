@@ -14,11 +14,7 @@ all: $(BINS)
 %.o: %.c 
 	$(CC) $(COPTS) $< -c -o $@
 
-<<<<<<< Updated upstream
 main.elf: $(OBJS)  
-=======
-main.elf: $(OBJS) 
->>>>>>> Stashed changes
 	$(CC) $(COPTS) $^ -o $@
 
 clean:
