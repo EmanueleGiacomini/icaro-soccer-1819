@@ -1,29 +1,40 @@
+/**
+ * phoenix_drive.h
+ **/
 #pragma once
-#include "Arduino.h"
-#include "phoenix_joint.h"
-
-
-typedef struct {
-  double x_comp;
-  double y_comp;
-  uint8_t pins[3];
-} JointParams;
+#include "phoenix_params.h"
+#include "phoenix_joints.h"
 
 typedef struct {
-  int16_t speed;
-  uint8_t mode;
-} JointControl;
+  PhoenixJoint* joints;
 
+  double vel_x_desiderata;
+  double vel_y_desiderata;
+  double rot_desiderata;
 
-class HolonomicDrive {
-  Joint* joints;
-  JointParams* params;
-  JointControl* control;
-  
-  public:
-  HolonomicDrive();
-  void init(Joint* joints, JointParams* params,
-            JointControl* control);
-  void move(double x, double y, double theta);
-  void handle();
-};
+} PhoenixDrive;
+
+/**
+ * inizializza d (PhoenixDrive) azzerando le velocita desiderate
+ * e regolate.
+ * In oltre  imposta d->joints = joint_array
+ **/
+void PhoenixDrive_init(PhoenixDrive* d, PhoenixJoint* joint_array);
+
+/**
+ * imposta le velocita desiderate di d, in funzione dei parametri
+ * x, y e r
+ */
+void PhoenixDrive_setSpeed(PhoenixDrive* d, double x, double y, double r);
+
+/**
+ * Calcola ed assegna le velocita per 
+ * ogni Joint presente in d->joints 
+ **/
+void PhoenixDrive_handle(PhoenixDrive* d);
+
+/**
+ * Azzera i valori di velocita desiderate in d (PhoenixDrive)
+ * e rilancia PhoenixDrive_handle
+ **/
+void PhoenixDrive_reset(PhoenixDrive* d);
