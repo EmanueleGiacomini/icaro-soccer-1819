@@ -1,38 +1,26 @@
 /**
- * firmware.ino
- * 
- * @author Emanuele Giacomini
- * 
- **/
+   
+   firmware.ino
+
+-----------------------------------------------------
+
+   Copyright 2018 Emanuele Giacomini
+   
+   Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+   
+       http://www.apache.org/licenses/LICENSE-2.0
+   
+   Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
+   "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and limitations under the License.
+**/
+
 #include "phoenix_params.h"
+#include "phoenix_globals.h"
 #include "phoenix_joints.h"
 #include "phoenix_drive.h"
-
-PhoenixJoint joints[NUM_JOINTS] = {
-  {// Joint 0
-    pin_dira : 8,
-    pin_dirb : 9,
-    pin_pwm : 5,
-    direzione : 0,
-    velocita : 0
-  },
-  {// Joint 1
-    pin_dira : 10,
-    pin_dirb : 11,
-    pin_pwm : 6,
-    direzione : 0,
-    velocita : 0
-  },
-  {// Joint 2
-    pin_dira : 12,
-    pin_dirb : 13,
-    pin_pwm : 7,
-    direzione : 0,
-    velocita : 0
-  }
-};
-// drive per pilotare la piattaforma
-PhoenixDrive drive;
+#include "phoenix_line_internal.h"
+#include "phoenix_line.h"
 
 void setup() {
   Serial.begin(9600);
@@ -41,7 +29,17 @@ void setup() {
   for(int i=0;i<NUM_JOINTS;++i) {
     PhoenixJoint_init(&joints[i]);
   }
+  Serial.println("Joints initialized...");
   PhoenixDrive_init(&drive, joints);
+  Serial.println("Drive initialized...");
+
+  for(int i=0;i<NUM_LINE_SENSORS;++i) {
+    PhoenixLineSensor_init(&line_sensors[i]);
+  }
+  Serial.println("Line Sensors initialized...");
+  PhoenixLineHandler_init(&line_handler, line_sensors);
+  Serial.println("Line Handler initialized...");
+    
     
   
 }
