@@ -18,6 +18,9 @@ typedef struct {
     di m a 0 (ovvero x, y, sommaxy)
 **/
 void MiaStruct_init(MiaStruct* m) {
+  m->x = 0;
+  m->y = 0;
+  m->sommaxy = 0;
   
 }
 
@@ -25,24 +28,24 @@ void MiaStruct_init(MiaStruct* m) {
     pari a v
 **/
 void MiaStruct_setX(MiaStruct* m, int v) {
-  
+  m->x = v;
 }
 
 /** getX deve restituire la variabile x di m **/
 int MiaStruct_getX(MiaStruct* m) {
-  return 0;//da modificare...
+  return m->x;
 }
 
 /** setX deve impostare la variabile y di m
     pari a v
 **/
 void MiaStruct_setY(MiaStruct* m, int v) {
-  
+  m->y = v;
 }
 
 /** getY deve restituire la variabile y di m **/
 int MiaStruct_getY(MiaStruct* m) {
-  return 0;//da modificare...
+  return m->y;
 }
 
 /** 
@@ -50,7 +53,7 @@ int MiaStruct_getY(MiaStruct* m) {
     x ed y e salvarla in sommaxy
 **/
 void MiaStruct_compute(MiaStruct* m) {
-  
+  m->sommaxy= m->x + m->y;
 }
 
 /** #----------------> non modificare qui sotto... <--------------# **/
