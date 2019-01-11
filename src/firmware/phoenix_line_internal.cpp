@@ -14,9 +14,9 @@
 //#define LINE_ADC_ADDR_LEFT   1
 //#define LINE_ADC_ADDR_RIGHT  2
 //#define LINE_ADC_ADDR_BACK   3
-//static Adafruit_ADS1015 line_adc[NUM_LINEADC] = {
-//  Adafruit_ADS1015(LINE_ADC_ADDR_FRONT),
-//  Adafruit_ADS1015(LINE_ADC_ADDR_LEFT),
+//static Adafruit_ADS1015 line_adc[NUM_ADC] = {
+// Adafruit_ADS1015(LINE_ADC_ADDR_FRONT),
+// Adafruit_ADS1015(LINE_ADC_ADDR_LEFT),
 //  Adafruit_ADS1015(LINE_ADC_ADDR_RIGHT),
 //  Adafruit_ADS1015(LINE_ADC_ADDR_BACK)
 //};
