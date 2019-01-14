@@ -21,6 +21,9 @@
 #include "phoenix_drive.h"
 #include "phoenix_line_internal.h"
 #include "phoenix_line.h"
+#include "bno055.h"
+
+BNO055 imu;
 
 void setup() {
   Serial.begin(9600);
@@ -39,9 +42,8 @@ void setup() {
   Serial.println("Line Sensors initialized...");
   PhoenixLineHandler_init(&line_handler, line_sensors);
   Serial.println("Line Handler initialized...");
-    
-    
-  
+
+  BNO055_init(&imu); 
 }
 
 void loop() {
