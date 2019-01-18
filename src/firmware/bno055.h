@@ -4,6 +4,7 @@
  * for Robocup Jr. robots
  **/
 
+#pragma once
 #include <Arduino.h>
 #include <Wire.h>
 
@@ -145,6 +146,7 @@ typedef enum {
 #define ANGULAR_RATE_UNIT 1
 #define EULER_ANGLES_UNIT 2
 #define TEMPERATURE_UNIT 3
+#define FUSION_DATA_OUTPUT_FORMAT 7
 
 
 // Euler angle data representation
@@ -165,8 +167,8 @@ typedef enum {
  * The BNO055 I²C interface uses clock stretching. 
  **/
 
-#define BNO055_I2C_ADDR 0x27
-#define BNO055_I2C_ADDR_ALT 0x28
+#define BNO055_I2C_ADDR 0x28
+#define BNO055_I2C_ADDR_ALT 0x29
 #define BNO055_CHIP_ID 0xA0
 
 typedef enum {
@@ -184,11 +186,12 @@ typedef struct {
   BNO055_unit unit_angr : 1;
   BNO055_unit unit_eul : 1;
   BNO055_unit unit_temp : 1;
- 
+  // Invertex axes
+  uint8_t invert_heading : 1;
   // euler 
-  int16_t eul_heading;
-  int16_t eul_roll;
-  int16_t eul_pitch;
+  double eul_heading;
+  double eul_roll;
+  double eul_pitch;
   // LIA (LInear Acceleration)
   int16_t lia_x;
   int16_t lia_y;
@@ -201,7 +204,8 @@ typedef struct {
  * Fix everything on registers and stuff
  * finally enable the selected operating mode
  **/
-BNO055_result BNO055_init(BNO055* b);
+// BNO055_result
+uint8_t BNO055_init(BNO055* b);
 
 /**
  * Depending on the op selected, executes and 

@@ -21,11 +21,13 @@
 #include "phoenix_drive.h"
 #include "phoenix_line_internal.h"
 #include "phoenix_line.h"
-#include "bno055.h"
+#include "phoenix_imu.h"
+#include "phoenix_timer.h"
 
-BNO055 imu;
+struct Timer* test1;
 
 void setup() {
+  cli();
   Serial.begin(9600);
   Serial.println("Serial initialized...");
 
@@ -42,10 +44,19 @@ void setup() {
   Serial.println("Line Sensors initialized...");
   PhoenixLineHandler_init(&line_handler, line_sensors);
   Serial.println("Line Handler initialized...");
+  
+  Timer_init();
+  Serial.println("Timer initialized...");
+  sei();
+}
 
-  BNO055_init(&imu); 
+volatile uint16_t idle_time=0;
+
+void testTimerFn() {
+  Serial.println(idle_time);
+  idle_time=0;
 }
 
 void loop() {
-
+  idle_time++;
 }

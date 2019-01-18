@@ -99,3 +99,6 @@ PhoenixLineSensor line_sensors[NUM_LINE_SENSORS] = {
   }
 };
 PhoenixLineHandler line_handler;
+
+BNO055 dev_bno055;
+PhoenixImu imu;
