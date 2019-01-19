@@ -8,6 +8,17 @@
  * sulla piattaforma di Arduino
  **/
 void PhoenixJoint_init(PhoenixJoint* j) {
+  j->direzione=0;
+  j->velocita=0;
+
+  pinMode(j->pin_dira, OUTPUT);
+  digitalWrite(j->pin_dira, 0);
+
+  pinMode(j->pin_dirb, OUTPUT);
+  digitalWrite(j->pin_dirb, 0);
+
+  pinMode(j->pin_pwm, OUTPUT);
+  analogWrite(j->pin_pwm, 0);
   return;
 }
 
@@ -18,6 +29,15 @@ void PhoenixJoint_init(PhoenixJoint* j) {
  * velocita = modulo(velocita) [0, 255]
  */
 void PhoenixJoint_setSpeed(PhoenixJoint* j, int velocita) {
+  uint8_t dir=0;
+  if(velocita<0) {
+    velocita = -velocita;
+    dir=1;
+  }
+  if(velocita > 255)
+    velocita=255;
+  j->velocita=velocita;
+  j->direzione=dir;
   return;
 }
 
@@ -29,5 +49,8 @@ void PhoenixJoint_setSpeed(PhoenixJoint* j, int velocita) {
  * analogWrite
  */
 void PhoenixJoint_handle(PhoenixJoint* j) {
+  digitalWrite(j->pin_dira, j->direzione);
+  digitalWrite(j->pin_dirb, !j->direzione);
+  analogWrite(j->pin_pwm, j->velocita);
   return;
 }

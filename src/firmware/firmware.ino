@@ -44,13 +44,40 @@ void setup() {
   Serial.println("Line Sensors initialized...");
   PhoenixLineHandler_init(&line_handler, line_sensors);
   Serial.println("Line Handler initialized...");
-  
+
   Timer_init();
+  test1 = Timer_create(100, &testTimerFn, 0);
+  struct Timer* test_joint_timer=Timer_create(1000, &testJointsFn, 0);
+  Timer_start(test1);
+  Timer_start(test_joint_timer);
   Serial.println("Timer initialized...");
   sei();
 }
 
 volatile uint16_t idle_time=0;
+volatile uint8_t test_joint_fn_state=0;
+volatile uint8_t test_joint_fn_joint_idx=0;
+
+void testJointsFn() {
+  switch(test_joint_fn_state) {
+  case 0:
+    PhoenixJoint_setSpeed(&joints[test_joint_fn_joint_idx%3], 255);
+    PhoenixJoint_handle(&joints[test_joint_fn_joint_idx%3]);
+    break;
+  case 1:
+    PhoenixJoint_setSpeed(&joints[test_joint_fn_joint_idx%3], -255);
+    PhoenixJoint_handle(&joints[test_joint_fn_joint_idx%3]);
+    break;
+  case 3:
+    PhoenixJoint_setSpeed(&joints[test_joint_fn_joint_idx%3], 0);
+    PhoenixJoint_handle(&joints[test_joint_fn_joint_idx%3]);
+    test_joint_fn_joint_idx++;
+    break;
+  }
+  test_joint_fn_state++;
+  if(test_joint_fn_state>3)
+    test_joint_fn_state=0;
+}
 
 void testTimerFn() {
   Serial.println(idle_time);

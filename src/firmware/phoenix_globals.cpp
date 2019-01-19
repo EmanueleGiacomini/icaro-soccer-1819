@@ -6,23 +6,23 @@
 
 PhoenixJoint joints[NUM_JOINTS] = {
   {// Joint 0
-  pin_dira : 8,
-  pin_dirb : 9,
-  pin_pwm : 5,
-  direzione : 0,
-  velocita : 0
-  },
-  {// Joint 1
-  pin_dira : 10,
-  pin_dirb : 11,
+  pin_dira : 22,
+  pin_dirb : 23,
   pin_pwm : 6,
   direzione : 0,
   velocita : 0
   },
-  {// Joint 2
-  pin_dira : 12,
-  pin_dirb : 13,
+  {// Joint 1
+  pin_dira : 24,
+  pin_dirb : 25,
   pin_pwm : 7,
+  direzione : 0,
+  velocita : 0
+  },
+  {// Joint 2
+  pin_dira : 26,
+  pin_dirb : 27,
+  pin_pwm : 8,
   direzione : 0,
   velocita : 0
   }

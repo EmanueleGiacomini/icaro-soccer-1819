@@ -32,6 +32,7 @@ typedef struct Timer{
 
 uint8_t timers_mask=0;
 Timer timers[NUM_TIMERS];
+volatile uint8_t timers_counter=0;
 
 /**
  * Uses TIMER5 to launch an interrupt every 1mS
@@ -53,23 +54,39 @@ void Timer_init() {
 struct Timer* Timer_create(uint16_t duration_ms,
                            TimerFn timer_fn,
                            void* timer_args) {
-  cli();// Disattiva interrupt
-  sei();// Attiva interrupt
+  cli();
+  for(int i=0;i<NUM_TIMERS;++i) {
+    if(mask_read(&timers_mask, i)==0) {// timers_mask[i] == 0 => timer not used
+      mask_set(&timers_mask, i);
+      memset(&timers[i], 0, sizeof(Timer));
+      timers[i].timer_num=i;
+      timers[i].stop_flag=1;// function is initially in Steady state
+      timers[i].duration_ms=duration_ms;
+      timers[i].fn=timer_fn;
+      timers[i].args=timer_args;
+      sei();
+      return &timers[i];
+    }
+  }
+  sei();
   return 0; // No free timers slot
 }
 
 void Timer_destroy(struct Timer* t) {
   cli();
+  mask_clear(&timers_mask, t->timer_num);
   sei();
 }
 
 void Timer_start(struct Timer* t) {
   cli();
+  t->stop_flag=0;
   sei();
 }
 
 void Timer_stop(struct Timer* t) {
   cli();
+  t->stop_flag=1;
   sei();
 }
 
@@ -77,7 +94,7 @@ volatile uint16_t elapsed_time=0;
 
 ISR(TIMER5_COMPA_vect) {
   elapsed_time++;
-  for(int i=0;i<NUM_TIMERS;++i) {
+  for(int i=0;i<1;++i) {
     if(mask_read(&timers_mask, i)==1) {
       // check if current struct can be executed
       if(timers[i].stop_flag==0 && (elapsed_time % timers[i].duration_ms)==0) {
