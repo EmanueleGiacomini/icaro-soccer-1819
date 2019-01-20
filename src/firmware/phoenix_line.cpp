@@ -6,7 +6,7 @@
 
 // Funzioni utili per lavorare con la maschera.
 uint8_t mask_read(uint16_t* mask, uint8_t index) {
-  return *mask & (0x1<<index);
+  return (*mask & (0x1<<index))!=0;
 }
 
 void mask_setBit(uint16_t* mask, uint8_t index) {

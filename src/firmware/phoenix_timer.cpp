@@ -8,6 +8,18 @@
 
 #define NUM_TIMERS 8
 
+/**
+ * IMPORTANTE DA LEGGERE:
+ * Le funzioni che scrivete qui sotto sono molto sensibili e non devono
+ * essere interrotte durante la loro esecuzione (per esempio a causa di un
+ * interrupt dei timer stessi).
+ * Per questo all'inizio di ogni funzione viene lanciata la funzione
+ * cli() [CLear Interrupt] che disattiva gli interrupt del microcontrollore.
+ * Alla fine della funzione viene poi lanciata
+ * sei() [SEt Interrupt] che riattiva gli interrupt del microcontrollore.
+ **/
+
+
 static uint8_t mask_read(uint8_t* mask, uint8_t index) {
   return (*mask & (0x1<<index))!=0;
 }
@@ -34,7 +46,8 @@ uint8_t timers_mask=0;
 Timer timers[NUM_TIMERS];
 
 /**
- * Uses TIMER5 to launch an interrupt every 1mS
+ * Utilizza TIMER5 per inviare un interrupt
+ * ogni millisecondo
  **/
 void Timer_init() {
   cli();
@@ -50,39 +63,83 @@ void Timer_init() {
   sei();
 }
 
+/**
+ * Crea una nuova istanza di Timer con duration_ms,
+ * stop_flag pari ad 1, fn pari a timer_fn
+ * e args pari a timer_args
+ * Nel file .cpp è già presente un array di Timer(s)
+ * Per controllare quale posizione è già stata allocata
+ * devi controllare la maschera (timers_mask).
+ * Se il bit i-esimo della maschera e' pari a 0
+ * allora la cella i-esima dell'array è vuota.
+ * Inoltre imposta la variabile timer_num pari ad i
+ * Una volta riempita la struttura, ricordati di impostare
+ * il bit i-esimo della maschera ad 1
+ **/
 struct Timer* Timer_create(uint16_t duration_ms,
                            TimerFn timer_fn,
                            void* timer_args) {
   cli();// Disattiva interrupt
+  // Da completare...
   sei();// Attiva interrupt
-  return 0; // No free timers slot
+  return 0; // Non ci sono slot disponibili
 }
 
+/**
+ * Azzera il bit t->timer_num esimo della
+ * maschera timers_mask 
+ **/
 void Timer_destroy(struct Timer* t) {
   cli();
+  // Da completare...
   sei();
 }
 
+/**
+ * Imposta a 0 la variabile stop_flag di t
+ **/
 void Timer_start(struct Timer* t) {
   cli();
+  // Da completare...
   sei();
 }
 
+/**
+ * Imposta a 1 la variabile stop_flag di t
+ **/
 void Timer_stop(struct Timer* t) {
   cli();
+  // Da completare...
   sei();
 }
 
+// variabile che tiene conto dei millisecondi passati
 volatile uint16_t elapsed_time=0;
 
+/**
+ * ISR (Interrupt Service Routine)
+ * e' una funzione speciale che viene eseguita quando si verifica
+ * un determinato interrupt (TIMER5_COMPA_vect : quando il contatore
+ * di TIMER5 raggiunge il valore di OCR5A (1999), viene lanciato 
+ * l'interrupt).
+ * Queste funzioni devono essere molto veloci e corte in quanto vengono
+ * eseguite spesso ( di fatto 1000 volte al secondo ).
+ *
+ * Nello specifico questa ISR dovrà:
+ * 
+ * 0) incrementare di 1 la variabile elapsed_time (elapsed_time++)
+ * 1) scannerizzare uno alla volta i NUM_TIMERS timer(s) in cerca
+ *    dei timer attivi (ricavabili attraverso la maschera)
+ * 2) controllare che la stop_flag sia pari a 0 (quindi il timer sia attivo)
+ * 3) Che (elapsed_time % duration_ms) sia pari a 0 (ovvero che 
+ *    sia il momento giusto di lanciare la funzione del timer)
+ * 
+ * Se le condizioni sopra sono verificate allora esegue il comando
+ * (*timers[i].fn)(timers[i].args);
+ * dove i è l'indice del timer attivo corrente da eseguire
+ * Questo comando lancia l'esecuzione della funzione 
+ * associata al timer, passando i parametri args
+ **/
 ISR(TIMER5_COMPA_vect) {
-  elapsed_time++;
-  for(int i=0;i<NUM_TIMERS;++i) {
-    if(mask_read(&timers_mask, i)==1) {
-      // check if current struct can be executed
-      if(timers[i].stop_flag==0 && (elapsed_time % timers[i].duration_ms)==0) {
-        (*timers[i].fn)(timers[i].args);
-      }      
-    }
-  }
+  // Da completare...
 }
