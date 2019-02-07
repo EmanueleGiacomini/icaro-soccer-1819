@@ -2,6 +2,7 @@
  * phoenix_pixy.cpp
  **/
 
+#include "phoenix_pixy.h"
 
 // Oggetto Pixy privato (nascosto all'esterno della libreria)
 static Pixy pixy;
