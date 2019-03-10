@@ -23,6 +23,7 @@
 #include "phoenix_line.h"
 #include "phoenix_imu.h"
 #include "phoenix_timer.h"
+#include "phoenix_encoders.h"
 
 struct Timer* test1;
 
@@ -31,13 +32,15 @@ void setup() {
   Serial.begin(9600);
   Serial.println("Serial initialized...");
 
+  Encoder_init();
   for(int i=0;i<NUM_JOINTS;++i) {
     PhoenixJoint_init(&joints[i]);
   }
   Serial.println("Joints initialized...");
   PhoenixDrive_init(&drive, joints);
   Serial.println("Drive initialized...");
-
+  PhoenixImu_init(&imu);
+  /**
   for(int i=0;i<NUM_LINE_SENSORS;++i) {
     PhoenixLineSensor_init(&line_sensors[i]);
   }
@@ -52,38 +55,9 @@ void setup() {
   Timer_start(test_joint_timer);
   Serial.println("Timer initialized...");
   sei();
-}
-
-volatile uint16_t idle_time=0;
-volatile uint8_t test_joint_fn_state=0;
-volatile uint8_t test_joint_fn_joint_idx=0;
-
-void testJointsFn() {
-  switch(test_joint_fn_state) {
-  case 0:
-    PhoenixJoint_setSpeed(&joints[test_joint_fn_joint_idx%3], 255);
-    PhoenixJoint_handle(&joints[test_joint_fn_joint_idx%3]);
-    break;
-  case 1:
-    PhoenixJoint_setSpeed(&joints[test_joint_fn_joint_idx%3], -255);
-    PhoenixJoint_handle(&joints[test_joint_fn_joint_idx%3]);
-    break;
-  case 3:
-    PhoenixJoint_setSpeed(&joints[test_joint_fn_joint_idx%3], 0);
-    PhoenixJoint_handle(&joints[test_joint_fn_joint_idx%3]);
-    test_joint_fn_joint_idx++;
-    break;
-  }
-  test_joint_fn_state++;
-  if(test_joint_fn_state>3)
-    test_joint_fn_state=0;
-}
-
-void testTimerFn() {
-  Serial.println(idle_time);
-  idle_time=0;
+  **/
 }
 
 void loop() {
-  idle_time++;
+
 }

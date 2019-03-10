@@ -14,8 +14,21 @@ typedef struct {
   double heading_attuale;
   double heading_target;
   double heading_offset;
-  double errore;
-  double errore_pid;
+  double errore;//errore attuale
+  double errore_prec;//errore precedente
+  double output_pid;
+  int max_output;//massimo valore di output_pid
+
+  double dt;//delta tempo
+  double idt;//inverso delta tempo
+
+  double sum_i;//sommatoria integrale
+  int max_i;//massimo valore di sum_i
+  
+  
+  double kp;
+  double ki;
+  double kd;  
 }PhoenixImu;
 
 /**
