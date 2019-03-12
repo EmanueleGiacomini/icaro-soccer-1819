@@ -100,7 +100,9 @@ static const int8_t _transition_table []= {
  * - Ogni encoder genera due bit. Uniti con i due bit dall'iterazione precedente
  *   si hanno 4 bit. Possiamo costruire un indice per la tabella unendoli.
  * - Si prendono i primi due bit (tramite una maschera 0x03) di c_value e si
- *   uniscono (tramite operazione di OR | ) ai primi due bit di prev_value.
+ *   uniscono (tramite operazione di OR | ) ai primi due bit di prev_value (Nota
+ *   che per spostare i due bit del valore precedente a sinistra, puoi usare l'operatore
+ *   << 2)
  * - somma a *curr_value il valore di ttable[indice calcolato]
  * - finalmente si shifta c_value di 2 bit (c_value >>= 2) e 
  *   prev_value (prev_value >>= 2)
@@ -122,6 +124,7 @@ ISR(PCINT2_vect) {
     // first 2 bits of prev_value | first 2 bits of c_value
     uint8_t table_idx=(c_value&0x03)|((prev_value&0x03)<<2);
     *curr_enc += ttable[table_idx];
+    curr_enc++;
     c_value>>=2;
     prev_value>>=2;
   }
