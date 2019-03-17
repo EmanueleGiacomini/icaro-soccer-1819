@@ -92,3 +92,21 @@ void PhoenixLineHandler_reset(PhoenixLineHandler* d) {
   return;
 }
 
+/**
+ * imposta calib_flag pari ad 1, e lancia la funzione 
+ * PhoenixLineSensor_startCalib per ogni sensore in line_sensors 
+ **/
+void PhoenixLineHandler_startCalib(PhoenixLineHandler* d) {
+  // Da completare...
+  return;
+}
+
+/**
+ * azzera calib_flag e lancia la funzione PhoenixLineSensor_stopCalib
+ * per ogni sensore in line_sensors
+ **/
+void PhoenixLineHandler_stopCalib(PhoenixLineHandler* d) {
+  // Da completare...
+  return;
+}
+
