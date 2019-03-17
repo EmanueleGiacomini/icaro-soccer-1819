@@ -20,9 +20,9 @@
 // status of the encoder as the previous bits of port K
 uint8_t _encoder_prev;
 // Current encoder value
-uint16_t _encoder_current_value[NUM_ENCODERS];
+int16_t _encoder_current_value[NUM_ENCODERS];
 // Sampled value
-uint16_t _encoder_sampled_value[NUM_ENCODERS];
+int16_t _encoder_sampled_value[NUM_ENCODERS];
 
 /**
  * Azzera tutto l'array di _encoder_current_value ed
