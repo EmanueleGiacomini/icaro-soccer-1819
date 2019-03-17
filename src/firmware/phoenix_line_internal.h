@@ -51,9 +51,10 @@ typedef struct {
 
 /**
  * inizializza l (PhoenixLineSensor) azzerando i valori di
- * soglia, misura, misura_max, misura_min, detect_flag e 
+ * soglia, misura, misura_max, detect_flag e 
  * calibra_flag
  * OCCHIO a NON azzerare le variabili x ed y !
+ * UPDATE: misura_min va' impostato a 65535
  **/
 void PhoenixLineSensor_init(PhoenixLineSensor* l);
 
@@ -80,7 +81,7 @@ void PhoenixLineSensor_startCalib(PhoenixLineSensor* l);
  * pari a 0 
  * Poi imposta soglia secondo la formula:
  * soglia = (misura_max + misura_min) / 2
- * Poi azzera anche misura_min e misura_max
+ * Poi azzera misura_max e imposta misura_min a 65535
  **/
 void PhoenixLineSensor_stopCalib(PhoenixLineSensor* l);
 

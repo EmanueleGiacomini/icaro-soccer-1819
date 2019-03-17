@@ -7,20 +7,25 @@
 // PER FRANCESCO:
 // Togli il blocco di commenti qui sotto
 // x attivare la sezione relativa all'ADS1015
+/**
+#include "Adafruit_ADS1015.h"
 
-//#include "Adafruit_ADS1015.h"
-//#define NUM_ADC 4
-//#define LINE_ADC_ADDR_FRONT  0
-//#define LINE_ADC_ADDR_LEFT   1
-//#define LINE_ADC_ADDR_RIGHT  2
-//#define LINE_ADC_ADDR_BACK   3
-//static Adafruit_ADS1015 line_adc[NUM_ADC] = {
-// Adafruit_ADS1015(LINE_ADC_ADDR_FRONT),
-// Adafruit_ADS1015(LINE_ADC_ADDR_LEFT),
-//  Adafruit_ADS1015(LINE_ADC_ADDR_RIGHT),
-//  Adafruit_ADS1015(LINE_ADC_ADDR_BACK)
-//};
+#define NUM_ADC 3
 
+#define LINE_ADC_I2C_ADDR_0 0x48
+#define LINE_ADC_I2C_ADDR_1 0x49
+#define LINE_ADC_I2C_ADDR_2 0x4A
+
+#define LINE_ADC_ADDR_J0 0
+#define LINE_ADC_ADDR_J1 1
+#define LINE_ADC_ADDR_J2 2
+
+static Adafruit_ADS1015 line_adc[NUM_ADC] = {
+  Adafruit_ADS1015(LINE_ADC_I2C_ADDR_0),
+  Adafruit_ADS1015(LINE_ADC_I2C_ADDR_1),
+  Adafruit_ADS1015(LINE_ADC_I2C_ADDR_2),
+};
+**/
 
 
 /**
