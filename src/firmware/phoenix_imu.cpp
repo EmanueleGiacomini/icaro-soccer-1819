@@ -3,6 +3,7 @@
  **/
 
 #include "phoenix_imu.h"
+#include "utils.h"
 
 /**
  * Inizializza la struttura m (PhoenixImu*) tramite la seguente procedura:
@@ -37,12 +38,6 @@ uint8_t PhoenixImu_init(PhoenixImu* m) {
  * è più conveniente chiamarla solo ogni 10mS attraverso
  * un timer ? :) Nella prossima puntata...
  **/
-
-double clamp(double v, double m) {
-  if(v>m) return m;
-  if(v<-m) return -m;
-  return v;
-}
 
 void PhoenixImu_handle(PhoenixImu* m) {
   return;
