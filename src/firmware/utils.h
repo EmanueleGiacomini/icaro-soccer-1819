@@ -17,5 +17,5 @@ inline double cconstraint(double v, double min, double max) {
   return v;
 }
 
-inline double degToRad(double deg) {return (deg*71)/4068}
-inline double radToDeg(double rad) {return (rad*4068)/71}
+inline double degToRad(double deg) {return (deg*71)/4068;}
+inline double radToDeg(double rad) {return (rad*4068)/71;}
