@@ -11,7 +11,7 @@ inline double clamp(double v, double m) {
   return v;
 }
 
-inline double cconstraint(double v, double min, double max) {
+inline double cconstraint(double v, double max, double min) {
   double interval=max-min;
   if(v<min) return v+interval;
   if(v>max) return v-interval;
